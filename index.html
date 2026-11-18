@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    try {
+      const savedScheme = localStorage.getItem("csa-color-scheme");
+      if (savedScheme === "light" || savedScheme === "dark") {
+        document.querySelector('meta[name="color-scheme"]').content = savedScheme;
+      }
+    } catch {
+      // localStorage blocked; keep default "light dark"
+    }
+  </script>
+  <title>CyberShield Academy | 実践セキュリティ啓発ポータル</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%231d4ed8' d='M12 2L4 5.5v6.2c0 5.05 3.41 9.76 8 11.3 4.59-1.54 8-6.25 8-11.3V5.5L12 2zm-1.1 12.8l-2.83-2.83 1.41-1.41 1.42 1.41 3.54-3.53 1.41 1.41-4.95 4.95z'/%3E%3C/svg%3E">
+  <meta name="description" content="フィッシングメール判定、パスワード・パスキー体験、URL診断、日常チェックリストを通じて、実践的な情報セキュリティリテラシーを身につける啓発教材サイト。">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">メインコンテンツへスキップ</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top">
+        <svg class="brand-icon" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+          <path fill="currentColor" d="M12 2L4 5.5v6.2c0 5.05 3.41 9.76 8 11.3 4.59-1.54 8-6.25 8-11.3V5.5L12 2zm0 2.2l6 2.63v4.87c0 4.02-2.58 7.82-6 9.18-3.42-1.36-6-5.16-6-9.18V6.83L12 4.2zm-1.1 10.6l4.95-4.95-1.41-1.41-3.54 3.53-1.42-1.41-1.41 1.41 2.83 2.83z"/>
+        </svg>
+        <span class="brand-text">
+          <strong>CyberShield Academy</strong>
+          <small>実践セキュリティ啓発教材</small>
+        </span>
+      </a>
+
+      <nav class="site-nav" aria-label="主要セクション">
+        <ul>
+          <li><a href="#modules">基礎知識</a></li>
+          <li><a href="#labs">実践ラボ</a></li>
+          <li><a href="#checklist">セルフチェック</a></li>
+          <li><a href="#playbook">緊急対応・FAQ</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" class="btn btn-secondary btn-sm" id="open-settings-btn" command="show-modal" commandfor="settings-dialog">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+            <path fill="currentColor" d="M19.14 12.94c.04-.31.06-.63.06-.94s-.02-.63-.06-.94l2.03-1.58a.49.49 0 00.12-.61l-1.92-3.32a.49.49 0 00-.59-.22l-2.39.96a7.03 7.03 0 00-1.62-.94l-.36-2.54a.48.48 0 00-.48-.41h-3.84a.48.48 0 00-.48.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.49.49 0 00-.59.22L2.74 8.87a.48.48 0 00.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58a.49.49 0 00-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.37 1.03.7 1.62.94l.36 2.54c.05.24.26.41.48.41h3.84c.24 0 .44-.17.48-.41l.36-2.54c.59-.24 1.13-.57 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32a.49.49 0 00-.12-.61l-2.01-1.58zM12 15.6A3.6 3.6 0 1115.6 12 3.6 3.6 0 0112 15.6z"/>
+          </svg>
+          <span>表示・進捗設定</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">SECURITY AWARENESS CURRICULUM</p>
+          <h1 id="hero-title">知識を「見抜く力」へ。<br>日常のデジタル脅威から身を守る実践教材</h1>
+          <p class="hero-lead">
+            フィッシングメール、AIなりすまし、パスワードの使い回し、不審なURL——。
+            本教材では、最新の攻撃手口を「読んで理解し、シミュレーターで体験する」ことで、
+            職場でも家庭でも迷わず判断できる実践的なセキュリティ習慣を身につけます。
+          </p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#labs">実践トレーニングを始める</a>
+            <a class="btn btn-outline" href="#modules">6つの基礎モジュールを見る</a>
+          </div>
+        </div>
+
+        <aside class="progress-card" aria-labelledby="progress-card-title">
+          <div class="progress-card-header">
+            <h2 id="progress-card-title">あなたの学習進捗</h2>
+            <span class="badge badge-info" id="rank-badge">ビギナー</span>
+          </div>
+
+          <div class="progress-meter-wrap">
+            <div class="progress-stats">
+              <label for="overall-progress">総合達成率</label>
+              <strong id="overall-progress-text">0%</strong>
+            </div>
+            <progress id="overall-progress" value="0" max="100"></progress>
+          </div>
+
+          <dl class="progress-breakdown">
+            <div class="breakdown-item">
+              <dt>基礎モジュール</dt>
+              <dd id="stat-modules">0 / 6 完了</dd>
+            </div>
+            <div class="breakdown-item">
+              <dt>フィッシング訓練</dt>
+              <dd id="stat-phishing">0 / 4 判定</dd>
+            </div>
+            <div class="breakdown-item">
+              <dt>URL診断クイズ</dt>
+              <dd id="stat-urls">0 / 5 完了</dd>
+            </div>
+            <div class="breakdown-item">
+              <dt>総合理解度テスト</dt>
+              <dd id="stat-quiz">未受験</dd>
+            </div>
+            <div class="breakdown-item">
+              <dt>日常対策チェック</dt>
+              <dd id="stat-checklist">0 / 9 実践中</dd>
+            </div>
+          </dl>
+
+          <p class="progress-note">
+            進捗はこのブラウザ内に自動保存されます（外部サーバーへの送信は行いません）。
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="modules" aria-labelledby="modules-heading">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">CHAPTER 01 — CORE CONCEPTS</p>
+            <h2 id="modules-heading">6つの重要セキュリティテーマ</h2>
+            <p class="section-desc">
+              各カードを開いて、攻撃の仕組み・よくある兆候・具体的な防衛策を確認しましょう。各テーマ内の知識確認クイズにすべて正解すると「学習完了」として記録できます。
+            </p>
+          </div>
+        </div>
+
+        <div class="module-grid" id="module-grid">
+          <!-- Populated dynamically by app.js from data.js -->
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="labs" aria-labelledby="labs-heading">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">CHAPTER 02 — HANDS-ON LABS</p>
+            <h2 id="labs-heading">実践セキュリティトレーニングラボ</h2>
+            <p class="section-desc">
+              4つのインタラクティブな演習を通じて、詐欺メールの識別・強い認証の設計・URLの読み解き・総合理解度をチェックします。
+            </p>
+          </div>
+        </div>
+
+        <div class="tabs" id="lab-tabs">
+          <div class="tablist" focusgroup="tablist nomemory" aria-label="実践ラボの切り替え">
+            <button type="button" id="tab-phishing" aria-selected="true" focusgroupstart>
+              <span class="tab-num" aria-hidden="true">01</span>
+              <span>フィッシング見抜き訓練</span>
+            </button>
+            <button type="button" id="tab-password">
+              <span class="tab-num" aria-hidden="true">02</span>
+              <span>パスワード・パスキー体験</span>
+            </button>
+            <button type="button" id="tab-url">
+              <span class="tab-num" aria-hidden="true">03</span>
+              <span>URL構造＆罠判定</span>
+            </button>
+            <button type="button" id="tab-quiz">
+              <span class="tab-num" aria-hidden="true">04</span>
+              <span>総合理解度テスト</span>
+            </button>
+          </div>
+
+          <div class="tabpanel-stack">
+            <!-- Panel 1: Phishing Inspector -->
+            <div role="tabpanel" id="panel-phishing" aria-labelledby="tab-phishing" tabindex="0">
+              <div class="panel-inner">
+                <div class="lab-intro">
+                  <div>
+                    <h3>受信ボックス訓練：本物か、フィッシングか？</h3>
+                    <p>届いたメールやSMSの「差出人」「文脈」「リンク先URL」を観察し、安全か危険かを判定してください。リンクボタンにカーソルやフォーカスを合わせると遷移先URLのプレビューが確認できます。</p>
+                  </div>
+                  <div class="lab-case-switcher" role="group" aria-label="訓練ケース選択" id="phishing-case-buttons">
+                    <!-- Case buttons injected by JS -->
+                  </div>
+                </div>
+
+                <div class="phishing-workspace" id="phishing-workspace">
+                  <!-- Active email/SMS inspector injected by JS -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel 2: Password & Passkey Lab -->
+            <div role="tabpanel" id="panel-password" aria-labelledby="tab-password" hidden="until-found">
+              <div class="panel-inner">
+                <div class="lab-intro">
+                  <div>
+                    <h3>パスワード強度シミュレーター＆パスキー仕組み体験</h3>
+                    <p>パスワードの長さと文字種が解読時間にどう影響するかを確認し、フィッシングに強い次世代認証「パスキー」の仕組みを体験しましょう。</p>
+                  </div>
+                  <span class="badge badge-safe">🔒 ブラウザ内ローカル評価（外部送信なし）</span>
+                </div>
+
+                <div class="pw-lab-grid">
+                  <div class="card pw-checker-card">
+                    <h4>パスワード強度テスト</h4>
+                    <form id="pw-test-form" novalidate>
+                      <div class="field">
+                        <label for="pw-input">テスト用の文字列を入力（実在のパスワードは入力しないでください）</label>
+                        <div class="pw-input-row">
+                          <input
+                            type="password"
+                            id="pw-input"
+                            name="test_password"
+                            autocomplete="new-password"
+                            autocorrect="off"
+                            autocapitalize="none"
+                            spellcheck="false"
+                            aria-describedby="pw-input-help"
+                            placeholder="例: Blue-Mountain-River-74!"
+                          >
+                          <button
+                            type="button"
+                            id="toggle-pw-visibility"
+                            class="btn btn-secondary"
+                            aria-pressed="false"
+                            aria-label="入力文字列を表示する"
+                            aria-describedby="pw-toggle-warn"
+                          >
+                            表示
+                          </button>
+                        </div>
+                        <span id="pw-toggle-warn" class="visually-hidden">画面上に文字列が表示されます。周囲の視線にご注意ください。</span>
+                        <span id="pw-input-help" class="field-hint">ヒント：短い複雑な記号より、16文字以上のランダムなパスフレーズが安全です。</span>
+                      </div>
+                    </form>
+
+                    <div class="pw-sample-presets" aria-label="サンプルを試す">
+                      <span class="presets-label">サンプルを試す：</span>
+                      <button type="button" class="chip-btn" data-sample="password123">password123</button>
+                      <button type="button" class="chip-btn" data-sample="Taro2026!">Taro2026!</button>
+                      <button type="button" class="chip-btn" data-sample="kumo-hana-sora-mizu-84">kumo-hana-sora-mizu-84</button>
+                    </div>
+
+                    <div class="pw-meter-panel" aria-live="polite">
+                      <div class="pw-strength-header">
+                        <span>強度評価：<strong id="pw-strength-label">未入力</strong></span>
+                        <span>推定解読時間：<strong id="pw-crack-time">—</strong></span>
+                      </div>
+                      <progress id="pw-strength-bar" value="0" max="100"></progress>
+                      <ul class="pw-criteria-list" id="pw-criteria-list">
+                        <li data-check="length">12文字以上（推奨16文字以上）</li>
+                        <li data-check="variety">複数の文字種（英大小・数字・記号）または4語以上のパスフレーズ</li>
+                        <li data-check="common">よくある単語・連番・年号パターンを含まない</li>
+                      </ul>
+                      <p class="pw-feedback" id="pw-feedback">文字列を入力すると、リスクと改善ポイントが表示されます。</p>
+                    </div>
+                  </div>
+
+                  <div class="card passkey-sim-card">
+                    <h4>なぜ「パスキー（FIDO2）」が最強なのか？</h4>
+                    <p class="card-sub">
+                      パスワードは「人間が同じ秘密を入力する」ため偽サイトに盗まれます。パスキーは端末内の秘密鍵で<strong>正規ドメインに紐づく署名</strong>を行うため、偽サイトでは動作しません。
+                    </p>
+
+                    <div class="passkey-stepper" id="passkey-stepper">
+                      <ol class="step-list" aria-label="パスキー認証の仕組みステップ">
+                        <li class="sim-step is-active" data-step="0">
+                          <strong>1. チャレンジ送信</strong>
+                          <p>正規サーバー（<code>example.co.jp</code>）が一時的な乱数（チャレンジ）をブラウザへ送信します。</p>
+                        </li>
+                        <li class="sim-step" data-step="1">
+                          <strong>2. ドメイン検証</strong>
+                          <p>ブラウザは「今開いているOriginが本当に <code>example.co.jp</code> か」を自動検証します。偽サイト <code>examp1e.co.jp</code> では即座に拒否されます。</p>
+                        </li>
+                        <li class="sim-step" data-step="2">
+                          <strong>3. 生体認証＆署名</strong>
+                          <p>端末内の生体認証（指紋・顔）でロック解除し、端末から外に出ない「秘密鍵」でチャレンジに署名して返送します。</p>
+                        </li>
+                      </ol>
+                      <div class="sim-controls">
+                        <button type="button" class="btn btn-primary btn-sm" id="passkey-next-btn">次のステップを見る</button>
+                        <button type="button" class="btn btn-outline btn-sm" id="passkey-spoof-btn">偽サイトで試すとどうなる？</button>
+                      </div>
+                      <div class="sim-result" id="passkey-sim-result" aria-live="polite">
+                        「次のステップを見る」または「偽サイトで試す」を押して挙動を確認できます。
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel 3: URL Anatomy Quiz -->
+            <div role="tabpanel" id="panel-url" aria-labelledby="tab-url" hidden="until-found">
+              <div class="panel-inner">
+                <div class="lab-intro">
+                  <div>
+                    <h3>URL構造＆なりすましドメイン判定ラボ</h3>
+                    <p>攻撃者は正規サービス名によく似た文字列をサブドメインや別TLDに紛れ込ませます。URLの「本当の所有者（登録ドメイン）」を見抜く訓練です。</p>
+                  </div>
+                </div>
+
+                <div class="url-anatomy-banner" aria-label="URLの読み方の基本">
+                  <span class="url-part scheme">https://</span><span class="url-part subdomain">login.support.</span><span class="url-part domain">example.co.jp</span><span class="url-part path">/account/verify</span>
+                  <p class="url-anatomy-caption">
+                    最も重要なのは <strong><code>/</code> の直前にある「ドメイン本体（登録ドメイン）」</strong> です。左側（サブドメイン）には攻撃者が好きな文字を自由に置けます。
+                  </p>
+                </div>
+
+                <div class="url-quiz-list" id="url-quiz-list">
+                  <!-- URL challenge cards injected by JS -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel 4: Comprehensive Quiz -->
+            <div role="tabpanel" id="panel-quiz" aria-labelledby="tab-quiz" hidden="until-found">
+              <div class="panel-inner">
+                <div class="lab-intro">
+                  <div>
+                    <h3>総合理解度確認テスト（全6問）</h3>
+                    <p>日常業務やプライベートで直面するシナリオに対して、最も安全な行動を選択してください。</p>
+                  </div>
+                  <button type="button" class="btn btn-outline btn-sm" id="quiz-reset-btn">テストをやり直す</button>
+                </div>
+
+                <div id="quiz-container" class="quiz-container">
+                  <!-- Quiz UI injected by JS -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="checklist" aria-labelledby="checklist-heading">
+      <div class="container">
+        <div class="section-header checklist-header">
+          <div>
+            <p class="eyebrow">CHAPTER 03 — DAILY HYGIENE</p>
+            <h2 id="checklist-heading">今日から実践するセキュリティ・セルフチェック</h2>
+            <p class="section-desc">
+              完璧を目指す必要はありません。まずは被害の8割以上を防げる「基本の9項目」から順番に対策を完了させましょう。
+            </p>
+          </div>
+          <div class="checklist-score-box" aria-live="polite">
+            <span class="score-label">防御対策スコア</span>
+            <strong class="score-value" id="checklist-score-text">0 / 9</strong>
+          </div>
+        </div>
+
+        <div class="checklist-grid" id="checklist-grid">
+          <!-- Checklist categories injected by JS -->
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="playbook" aria-labelledby="playbook-heading">
+      <div class="container">
+        <section class="accordion" id="playbook-accordion" aria-labelledby="playbook-heading">
+          <div class="accordion-header">
+            <div>
+              <p class="eyebrow">CHAPTER 04 — INCIDENT PLAYBOOK &amp; FAQ</p>
+              <h2 id="playbook-heading">緊急時初動マニュアル＆よくある疑問</h2>
+              <p class="section-desc">
+                「やってしまったかもしれない」と思った瞬間の冷静な行動手順と、よくある疑問への回答をまとめています。
+              </p>
+            </div>
+            <button type="button" class="btn btn-outline btn-sm" commandfor="playbook-accordion" command="--toggle-all" aria-expanded="false">
+              <span class="expand">すべて開く</span>
+              <span class="collapse">すべて閉じる</span>
+            </button>
+          </div>
+
+          <details>
+            <summary>不審なメールのURLをクリックしてしまった！まず何をすべき？</summary>
+            <div class="details-body">
+              <ol>
+                <li><strong>何も入力せずにページを閉じる：</strong>ID・パスワードやクレジットカード情報を入力していなければ、ページを閉じただけで直ちに情報漏えいするケースは限られます。</li>
+                <li><strong>パスワードを入力してしまった場合：</strong>ただちに正規サイト（ブックマークや公式検索から移動）でパスワードを変更し、同じパスワードを使い回している他サービスもすべて変更してください。</li>
+                <li><strong>不正ログイン履歴・通知を確認する：</strong>不審なログイン通知やメール転送設定が追加されていないか確認し、業務端末の場合はすぐに情報システム部門（CSIRT/ヘルプデスク）へ報告してください。</li>
+              </ol>
+            </div>
+          </details>
+
+          <details>
+            <summary>画面に「ウイルスに感染しました」と警告音付きで表示された（サポート詐欺）</summary>
+            <div class="details-body">
+              <p>表示されている電話番号には<strong>絶対に電話をかけず</strong>、指示された遠隔操作ソフトもインストールしないでください。</p>
+              <ul>
+                <li>フルスクリーン表示になっている場合は <code>Esc</code> キーを長押しするか、<code>Alt + F4</code>（Macは <code>Command + Q</code>）でブラウザを終了します。</li>
+                <li>閉じられない場合はタスクマネージャー（Windows: <code>Ctrl + Shift + Esc</code> / Mac: 強制終了）でブラウザを終了し、再起動時は「前回のセッションを復元」を選ばないでください。</li>
+              </ul>
+            </div>
+          </details>
+
+          <details>
+            <summary>添付ファイルを開いた後にファイルが暗号化・開けなくなった（ランサムウェアの疑い）</summary>
+            <div class="details-body">
+              <p>被害拡大（社内ネットワークや共有ドライブへの横展開）を防ぐため、<strong>秒単位での隔離</strong>が最優先です。</p>
+              <ol>
+                <li><strong>ネットワークから即座に切断する：</strong>LANケーブルを抜く、およびWi-Fiをオフにします（電源はすぐ切らず、メモリ上の証跡を保つため情報システム部門の指示を待つのが推奨されます）。</li>
+                <li><strong>共有フォルダへの被害確認を依頼し、速やかに報告：</strong>「怒られるかも」と隠して作業を続けると、数分で全社ファイルサーバーが暗号化される恐れがあります。</li>
+              </ol>
+            </div>
+          </details>
+
+          <details>
+            <summary>業務で生成AI（ChatGPT / Gemini等）を使う際のセキュリティ注意点は？</summary>
+            <div class="details-body">
+              <p>個人契約の無料版や学習利用オプトアウトが設定されていない環境に、社外秘・個人情報・顧客データ・ソースコード・APIキーを入力してはいけません。</p>
+              <ul>
+                <li>組織が承認・契約している法人向け環境（入力データがモデル学習に使われないプラン）のみを業務利用してください。</li>
+                <li>プロンプトに含めるデータは匿名化・ダミーデータ化を徹底し、AIの出力コードやURLは必ず人間が検証してください（ハルシネーションによる存在しないパッケージ名の罠＝スロップスクワッティングへの対策）。</li>
+              </ul>
+            </div>
+          </details>
+
+          <details>
+            <summary>「認証してください」という見覚えのないMFA通知（プッシュ通知）が届いたら？</summary>
+            <div class="details-body">
+              <p>攻撃者があなたのパスワードをすでに入手し、ログインを試みているサインです（<strong>MFA疲労攻撃 / MFA Fatigue</strong>）。</p>
+              <ul>
+                <li>身に覚えのない承認リクエストは<strong>必ず「拒否（いいえ）」</strong>を押してください。</li>
+                <li>通知が止まない場合も絶対に承認せず、すぐに該当アカウントのパスワードを変更し、可能であれば番号照合方式（Number Matching）やパスキーへ切り替えてください。</li>
+              </ul>
+            </div>
+          </details>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>CyberShield Academy</strong>
+        <p>本サイトに掲載されているフィッシングメール・不審URLの例は、セキュリティ啓発のための安全な学習用シミュレーションです。入力されたテスト文字列や進捗データはすべてご利用のブラウザ内のみに保存され、外部へ送信されません。</p>
+      </div>
+      <p class="footer-meta"><a href="#top">ページの先頭へ戻る</a></p>
+    </div>
+  </footer>
+
+  <!-- Module Detail Modal Dialog -->
+  <dialog id="module-dialog" aria-labelledby="module-dialog-title" closedby="any">
+    <div class="dialog-surface">
+      <header class="dialog-header">
+        <div>
+          <span class="badge badge-info" id="module-dialog-tag">テーマ</span>
+          <h2 id="module-dialog-title">モジュールタイトル</h2>
+        </div>
+        <button type="button" class="btn-icon" command="close" commandfor="module-dialog" aria-label="閉じる">✕</button>
+      </header>
+      <div class="dialog-body" id="module-dialog-body">
+        <!-- Populated by JS -->
+      </div>
+      <footer class="dialog-footer">
+        <p class="dialog-footer-status" id="module-dialog-quiz-status" role="status" aria-live="polite"></p>
+        <form method="dialog" class="dialog-actions">
+          <button type="submit" value="close" class="btn btn-outline">閉じる</button>
+          <button type="submit" value="complete" class="btn btn-primary" id="module-dialog-complete-btn" disabled>学習完了として記録する</button>
+        </form>
+      </footer>
+    </div>
+  </dialog>
+
+  <!-- Settings & Theme Dialog -->
+  <dialog id="settings-dialog" aria-labelledby="settings-dialog-title" closedby="any">
+    <div class="dialog-surface">
+      <header class="dialog-header">
+        <h2 id="settings-dialog-title">表示設定・学習データ管理</h2>
+        <button type="button" class="btn-icon" command="close" commandfor="settings-dialog" aria-label="閉じる">✕</button>
+      </header>
+      <div class="dialog-body">
+        <fieldset class="theme-fieldset">
+          <legend>カラーテーマ設定</legend>
+          <p class="field-hint">OSの設定に合わせるか、学習しやすい配色を固定できます。</p>
+          <div class="theme-options">
+            <label class="radio-card">
+              <input type="radio" name="color-scheme-choice" value="system">
+              <span>
+                <strong>システム設定に従う</strong>
+                <small id="system-scheme-label">現在: ライト</small>
+              </span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="color-scheme-choice" value="light">
+              <span>
+                <strong>ライトモード</strong>
+                <small>明るい背景で表示</small>
+              </span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="color-scheme-choice" value="dark">
+              <span>
+                <strong>ダークモード</strong>
+                <small>暗い背景で表示</small>
+              </span>
+            </label>
+          </div>
+        </fieldset>
+
+        <section class="reset-section" aria-labelledby="reset-heading">
+          <h3 id="reset-heading">学習進捗のリセット</h3>
+          <p class="field-hint">完了したモジュール・ラボ・チェックリストの記録を初期化します。</p>
+          <button type="button" class="btn btn-danger-outline btn-sm" id="reset-progress-btn">すべての進捗をリセットする</button>
+          <p class="status-msg" id="reset-status-msg" role="status" aria-live="polite"></p>
+        </section>
+      </div>
+      <footer class="dialog-footer">
+        <form method="dialog" class="dialog-actions">
+          <button type="submit" value="done" class="btn btn-primary" autofocus>完了</button>
+        </form>
+      </footer>
+    </div>
+  </dialog>
+</body>
+</html>
